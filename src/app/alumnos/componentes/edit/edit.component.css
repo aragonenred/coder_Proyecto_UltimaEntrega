@@ -1,0 +1,17 @@
+
+.alert-text{
+  color:red;
+  font-size: 12px;
+  margin: 0;
+}
+.none{
+  display: none;
+}
+.valid-icon{
+  color: rgba(46, 221, 46, 0.651);
+  transition: all 0.8s ease;
+}
+.invalid-icon{
+  color: rgba(247, 34, 34, 0.651);
+  transition: all 0.8s ease;
+}

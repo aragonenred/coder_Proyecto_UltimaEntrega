@@ -1,0 +1,80 @@
+<div mat-dialog-content>
+  <form class="form" [formGroup]="formulario">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="legacy">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" type="text" placeholder="Eduardo Emmanuel" >
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('nombre')?.errors"></i>
+          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('nombre')?.errors && formulario.get('nombre')?.touched" ></i>
+          <p><small class="alert-text" *ngIf="formulario.get('nombre')?.errors?.['required'] && formulario.get('nombre')?.touched" >*Ingresa tu nombre</small></p>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="legacy">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" type="text" placeholder="Riccillo" >
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('apellido')?.errors"></i>
+            <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('apellido')?.errors && formulario.get('apellido')?.touched" ></i>
+            <p><small class="alert-text" *ngIf="formulario.get('apellido')?.errors?.['required'] && formulario.get('apellido')?.touched" >*Ingresa tu apellido</small></p>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="legacy">
+            <mat-label>Documento</mat-label>
+            <input matInput formControlName="documento" type="text" placeholder="33615758" maxlength="8">
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('documento')?.errors"></i>
+            <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('documento')?.errors && formulario.get('documento')?.touched" ></i>
+            <p><small class="alert-text" *ngIf="formulario.get('documento')?.errors?.['required'] && formulario.get('documento')?.touched" >*Ingresa tu documento</small></p>
+            <p><small class="alert-text" *ngIf="formulario.get('documento')?.errors?.['pattern'] && formulario.get('documento')?.touched" >*Ingresa un documento válido</small></p>
+            <p><small class="alert-text" *ngIf="formulario.get('documento')?.errors?.['maxLength'] && formulario.get('documento')?.touched" >*El largo máximo es 8</small></p>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="legacy">
+            <mat-label>e-mail</mat-label>
+            <input matInput formControlName="email" type="email" placeholder="tucorreo@mail.com" >
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('email')?.errors"></i>
+          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('email')?.errors && formulario.get('email')?.touched" ></i>
+          <p><small class="alert-text" *ngIf="formulario.get('email')?.errors?.['required'] && formulario.get('email')?.touched" >*Ingresa tu correo</small></p>
+          <p><small class="alert-text" *ngIf="formulario.get('email')?.errors?.['email'] && formulario.get('email')?.touched" >*Ingresa un correo valido</small></p>
+        </div>
+      </div><!--Row-->
+    </div><!--Form group-->
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance= "legacy">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput formControlName="nacimiento" type="date" >
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('nacimiento')?.errors"></i>
+          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('nacimiento')?.errors && formulario.get('nacimiento')?.touched" ></i>
+          <p><small class="alert-text" *ngIf="formulario.get('nacimiento')?.errors?.['required'] && formulario.get('nacimiento')?.touched" >*Ingresa tu fecha de nacimiento</small></p>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="legacy">
+            <mat-label>Pais</mat-label>
+            <mat-select formControlName ="pais" class="mr-1 select">
+              <mat-option *ngFor="let pais of paises" [value]="pais">{{pais}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('pais')?.errors"></i>
+            <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('pais')?.errors && formulario.get('pais')?.touched" ></i>
+            <p><small class="alert-text" *ngIf="formulario.get('pais')?.errors?.['required'] && formulario.get('pais')?.touched" >*Selecciona un pais</small></p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cerrar()">Cerrar</button>
+  <button mat-button (click)="actualizar()">Actualizar</button>
+</div>
