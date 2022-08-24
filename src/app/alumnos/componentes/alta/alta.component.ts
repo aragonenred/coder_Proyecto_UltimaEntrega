@@ -60,7 +60,6 @@ export class AltaComponent implements OnInit {
             habilitado: true
           };
     if(this.formulario.status =='VALID'){
-      console.log(this.formulario);
       this.tabla?.agregarAlumno(this.alumno);
       this.formulario.reset();
 
@@ -69,6 +68,7 @@ export class AltaComponent implements OnInit {
       alert('Opps! hay datos que te faltan completar 😕')
     }
   }
+
   reset(){
     this.formulario.reset();
   }

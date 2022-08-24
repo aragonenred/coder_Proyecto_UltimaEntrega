@@ -11,6 +11,8 @@ import { LoginService } from '../../../core/login/services/login.service';
 export class SidebarComponent implements OnInit, OnDestroy {
 
 
+
+ selectMenu?:string;
  // timeLoginSuscripcion: Subscription;
  timeLogin$:Observable<any>;
 
@@ -40,6 +42,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
    }else{
      this.hidden = true;
    }
+ }
+
+ selected(title:string){
+  this.selectMenu =title;
  }
 
  ngOnDestroy():void{

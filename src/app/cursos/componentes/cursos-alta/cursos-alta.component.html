@@ -1,0 +1,68 @@
+<div class="container container-form" >
+  <h3 style="color:rgba(0, 0, 0, 0.5); font-size: 12px; font-weight: 300; ">Administrar > <span style="font-weight: 600;">Cursos</span></h3>
+  <div [ngSwitch]="showForm">
+    <div *ngSwitchCase="true">
+      <button mat-flat-button style="color:#32419c; padding-left:0; font-size:12px; font-family: 'Poppins', sans-serif;"(click)="activarForm()"><mat-icon aria-hidden="false">keyboard_arrow_up</mat-icon> Ocultar</button>
+    </div>
+    <div *ngSwitchCase="false">
+      <button mat-flat-button style="color:#32419c; padding-left:0; font-size:12px; font-family: 'Poppins', sans-serif;" (click)="activarForm()"><mat-icon aria-hidden="false" >add_circle</mat-icon> Agregar</button>
+    </div>
+  </div>
+  <form class="form" [formGroup]="formulario" (ngSubmit)="agregarCurso()" *ngIf="showForm" [ngClass]="formulario.status =='VALID'? 'bgValid':''" >
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>id</mat-label>
+            <input matInput formControlName="id" type="text" placeholder="DW000">
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('id')?.errors"></i>
+          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('id')?.errors && formulario.get('id')?.touched" ></i>
+          <p><small class="alert-text" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched" >*Ingresa el id</small></p>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Titulo</mat-label>
+            <input matInput formControlName="titulo" type="text" placeholder="React js">
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('titulo')?.errors"></i>
+            <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('titulo')?.errors && formulario.get('titulo')?.touched" ></i>
+            <p><small class="alert-text" *ngIf="formulario.get('titulo')?.errors?.['required'] && formulario.get('titulo')?.touched" >*Ingresa tu titulo</small></p>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Duracion</mat-label>
+            <input matInput formControlName="duracion" type="text" placeholder="1 semana" >
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('duracion')?.errors"></i>
+            <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('duracion')?.errors && formulario.get('duracion')?.touched" ></i>
+            <p><small class="alert-text" *ngIf="formulario.get('duracion')?.errors?.['required'] && formulario.get('duracion')?.touched" >*Ingresa la duracion del curso</small></p>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Profesor</mat-label>
+            <input matInput formControlName="profesor" type="text" placeholder="Juan Perez">
+          </mat-form-field>
+          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('profesor')?.errors"></i>
+          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('profesor')?.errors && formulario.get('profesor')?.touched" ></i>
+          <p><small class="alert-text" *ngIf="formulario.get('profesor')?.errors?.['required'] && formulario.get('profesor')?.touched" >*Ingresa el profesor que dictará la clase</small></p>
+        </div>
+      </div><!--Row-->
+    </div><!--Form group-->
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-1 col-md-1">
+          <button mat-raised-button color="secondary" type="submit" style="font-size: 12px;" >Agregar</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+  <app-cursos-lista></app-cursos-lista>
+
+</div><!--container-->

@@ -1,0 +1,42 @@
+<div class="mat-elevation-z8 mt-3 mb-3" >
+  <mat-form-field class="ml-3 mt-1">
+    <mat-label>Buscar</mat-label>
+    <input type="text" (keyup)="filtrar($event)" matInput>
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef ><span appEncabezados>ID</span></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="inactive"> {{element.id }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="titulo">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>TITULO</span></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="inactive"> {{element.titulo }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="duracion">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>DURACION</span></mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.duracion }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="profesor">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>PROFESOR</span></mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.profesor}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="editarCurso(element)">
+              <mat-icon style="color:#ffbc00e0">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="eliminarCurso(element)">
+              <mat-icon style="color:#d91313d1">delete</mat-icon>
+          </button>
+      </mat-cell>
+  </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+</div>

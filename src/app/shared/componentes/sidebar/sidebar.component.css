@@ -70,3 +70,7 @@ background-color: #4ba1d3;
 color: #2e323e;
 }
 
+.selected{
+  border-left: 3px solid #4ba1d3;
+
+}

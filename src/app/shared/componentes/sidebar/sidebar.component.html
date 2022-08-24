@@ -23,9 +23,9 @@
 
     <div class="divisor"></div>
     <ul>
-      <a routerLink="alumnos/alta" style="text-decoration:none;"><li>🎓 Alumnos</li></a>
-      <a href="#" style="text-decoration:none;"><li>📚 Clases</li></a>
-      <a href="#" style="text-decoration:none;"><li>📋 Cursos</li></a>
+      <a routerLink="alumnos/alta" (click)="selected('alumnos')" style="text-decoration:none;" ><li [ngClass]="selectMenu=='alumnos'? 'selected':''">🎓 Alumnos</li></a>
+      <a routerLink="cursos/alta" (click)="selected('cursos')" style="text-decoration:none;"><li [ngClass]="selectMenu=='cursos'? 'selected':''">📚 Cursos</li></a>
+      <a routerLink="inscripciones/alta" (click)="selected('inscripciones')" style="text-decoration:none;"><li [ngClass]="selectMenu=='inscripciones'? 'selected':''" >📋 Inscripciones</li></a>
     </ul>
 
     <div class="d-flex subtitle">
