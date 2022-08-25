@@ -1,0 +1,48 @@
+<h4>Selecciona el alumno</h4>
+<div class="mat-elevation-z8 mt-3 mb-3" >
+  <mat-form-field class="ml-3 mt-1">
+    <mat-label>Buscar</mat-label>
+    <input type="text" (keyup)="filtrar($event)" matInput>
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef ><span appEncabezados>Nombre</span></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="inactive"> {{element.nombre }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="documento">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>Documento</span></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="inactive"> {{element.documento }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>email</span></mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.email }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="nacimiento">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>Nacimiento</span></mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nacimiento}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="pais">
+      <mat-header-cell *matHeaderCellDef><span appEncabezados>Pais</span></mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.pais}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef style="justify-content: center;"></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          <mat-radio-button  (click)="selectAlumno(element)" ></mat-radio-button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+</div>
+<div style="text-align:right ;">
+  <button mat-stroked-button color="primary" (click)="cerrar()" class="mr-1">Cerrar</button>
+  <button mat-stroked-button color="primary" (click)="agregar()">Agregar</button>
+
+</div>
+
+
+

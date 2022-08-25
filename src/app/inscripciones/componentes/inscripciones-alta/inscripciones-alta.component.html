@@ -1,1 +1,95 @@
-<p>inscripciones-alta works!</p>
+<div class="container container-form" >
+  <h3 style="color:rgba(0, 0, 0, 0.5); font-size: 12px; font-weight: 300; ">Administrar > <span style="font-weight: 600;">Inscipciones</span></h3>
+
+  <form>
+    <button mat-raised-button color="secondary" (click)="buscarAlumno()" ><mat-icon aria-hidden="false" aria-label="{2:label} icon">search</mat-icon>Buscar Alumno</button>
+
+    <div class="row">
+      <div class="col-12">
+        <h4 *ngIf="alumnoActivo" style="margin: 10px 0 0 0 ;">{{alumnoActivo.nombre}}</h4>
+        <p *ngIf="alumnoActivo" >{{alumnoActivo.documento}}</p>
+      </div>
+    </div>
+    <div *ngIf="alumnoActivo" class="row">
+      <div class="col-12">
+        <button mat-raised-button color="primary" (click)="agregarCurso()"><mat-icon aria-hidden="false" aria-label="{2:label} icon">add</mat-icon>Agregar Curso</button>
+      </div>
+    </div>
+
+  </form>
+
+  <app-inscripciones-lista></app-inscripciones-lista>
+
+  <!--
+
+  <form class="form" action="">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field style="width: 200px ;">
+            <mat-label>Selecciona el alumno inscribir</mat-label>
+            <input  (keyup)="keyDownNombre($event)" matInput placeholder="German Sordano">
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field>
+            <mat-label></mat-label>
+            <input readonly matInput value="33615758">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <input readonly matInput value="Ornela">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <input readonly matInput value="Marinelli">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-6">
+          <mat-table [dataSource]="dataSource" *ngIf="showTableAlumnos">
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef>NOMBRE</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido">
+              <mat-header-cell *matHeaderCellDef>APELLIDO</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.apellido}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="accion">
+              <mat-header-cell *matHeaderCellDef>SELECCIONAR</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="justify-content: center;"><mat-radio-button value="1"></mat-radio-button></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <button mat-raised-button color="secondary">Inscribir</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+-->
+
+
+
+</div><!--container-->
+
