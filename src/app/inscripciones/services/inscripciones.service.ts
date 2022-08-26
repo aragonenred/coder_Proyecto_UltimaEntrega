@@ -39,6 +39,7 @@ export class InscripcionesService {
    }
 
    deleteInscripciones(elemento:Inscripciones){
+      console.log(elemento);
       this.inscripciones.forEach((inscripcion, index)=>{
           if(inscripcion.dni === elemento.dni){
             this.inscripciones[index].cursos.forEach((curso, indexcurso)=>{
@@ -48,6 +49,7 @@ export class InscripcionesService {
             })
           }
       });
+      this.inscripcionesSubject.next(this.inscripciones);
    }
 
 

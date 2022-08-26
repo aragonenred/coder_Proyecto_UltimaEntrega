@@ -56,6 +56,7 @@ export class InscripcionesAltaComponent implements OnInit {
     dialogEdit.afterClosed().subscribe((resultado) => {
       if(resultado){
         this.alumnoActivo = resultado;
+        this.tablaInscripciones?.loadTableInscripciones(this.alumnoActivo);
       }
     });
 
