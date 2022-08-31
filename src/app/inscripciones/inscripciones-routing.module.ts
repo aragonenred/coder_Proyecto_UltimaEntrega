@@ -7,7 +7,7 @@ import { InscripcionesAltaComponent } from './componentes/inscripciones-alta/ins
 
 
 const routes: Routes = [
-  {path:'inscripciones', children:[
+  {path:'', children:[
     {path:'alta', component:InscripcionesAltaComponent}
 
   ]

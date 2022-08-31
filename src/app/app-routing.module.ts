@@ -11,10 +11,17 @@ import { InicioComponent } from './core/inicio/inicio.component';
 
 const routes: Routes = [
   {path:'inicio', component:InicioComponent},
-  {path:'alumnos', component:AlumnosComponent},
-  {path:'cursos', component:CursosComponent},
+ // {path:'alumnos', component:AlumnosComponent},
+  {path:'alumnos', loadChildren:() =>import('./alumnos/alumnos.module').then((m)=>m.AlumnosModule)},
+  //{path:'cursos', component:CursosComponent},
+  {path:'cursos', loadChildren:()=>import('./cursos/cursos.module').then((m)=>m.CursosModule)},
+  {path:'inscripciones', loadChildren: ()=>import('./inscripciones/inscripciones.module').then((m)=>m.InscripcionesModule)},
+
   {path:'login', component:AuthComponent},
-  {path:'', component:InicioComponent}
+  {path:'', redirectTo:'inicio', pathMatch:'full'},
+  {path:'**', redirectTo:'inicio', pathMatch:'full'}
+
+
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { CursosAltaComponent } from './componentes/cursos-alta/cursos-alta.compo
 
 
 const routes: Routes = [
-  {path:'cursos', children:[
+  {path:'', children:[
     {path:'alta', component:CursosAltaComponent}
   ]
   }
