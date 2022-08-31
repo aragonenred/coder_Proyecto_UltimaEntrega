@@ -34,7 +34,10 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.inscripcionesSuscription.unsubscribe();
+    if(this.inscripcionesSuscription){
+      this.inscripcionesSuscription.unsubscribe();
+    }
+
   }
 
   //Funcion que realiza la carga de la tabla de inscripciones.

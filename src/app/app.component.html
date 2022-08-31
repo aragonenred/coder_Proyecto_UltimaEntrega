@@ -1,6 +1,6 @@
-<div class="container container-responsive" style="max-width: 100%!important;">
+<div *ngIf="authenticated"  class="container container-responsive" style="max-width: 100%!important;">
   <div class="row">
-    <div class="col-12 col-md-2 col-lg-2 p-0" >
+    <div  class="col-12 col-md-2 col-lg-2 p-0" >
       <div class="sidebar">
         <app-sidebar></app-sidebar>
       </div>
@@ -20,6 +20,16 @@
     </div>
   </div>
 </div>
+
+
+<div *ngIf="!authenticated" class="container container-responsive" style="max-width: 100%!important;">
+  <div class="row">
+    <div class="col-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
 
 
 

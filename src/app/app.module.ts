@@ -9,13 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material.module';
 import { CursosModule } from './cursos/cursos.module';
 import { InscripcionesModule } from './inscripciones/inscripciones.module';
+import { AuthComponent } from './core/login/componentes/auth/auth.component';
+import { LoginModule } from './core/login/login.module';
+import { InicioComponent } from './core/inicio/inicio.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +28,7 @@ import { InscripcionesModule } from './inscripciones/inscripciones.module';
     AlumnosModule,
     CursosModule,
     InscripcionesModule,
+    LoginModule,
 
     BrowserAnimationsModule,
     MaterialModule

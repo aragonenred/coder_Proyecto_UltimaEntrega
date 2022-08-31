@@ -1,0 +1,34 @@
+<form class="form" [formGroup]="formulario" (ngSubmit)="login()" >
+  <div class="form-group">
+    <div class="row">
+      <div class="col-8">
+        <mat-form-field>
+          <mat-label>usuario</mat-label>
+          <input matInput formControlName="usuario" type="text">
+        </mat-form-field>
+        <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('usuario')?.errors"></i>
+        <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('usuario')?.errors && formulario.get('usuario')?.touched" ></i>
+        <p><small class="alert-text" *ngIf="formulario.get('usuario')?.errors?.['required'] && formulario.get('usuario')?.touched" >*Ingresa el id</small></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <mat-form-field>
+          <mat-label>contraseña</mat-label>
+          <input matInput formControlName="password" type="password" placeholder="*********">
+        </mat-form-field>
+        <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('password')?.errors"></i>
+        <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('password')?.errors && formulario.get('password')?.touched" ></i>
+        <p><small class="alert-text" *ngIf="formulario.get('password')?.errors?.['required'] && formulario.get('password')?.touched" >*Ingresa el id</small></p>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <button mat-button type="submit">Ingresar</button>
+    </div>
+  </div>
+
+</form>
