@@ -5,6 +5,10 @@
   </mat-form-field>
 
   <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id" >
+      <mat-header-cell *matHeaderCellDef style="display: none;" ><span appEncabezados>id</span></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="inactive" style="display: none;"> {{element.id }} </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef ><span appEncabezados>NOMBRE</span></mat-header-cell>
       <mat-cell *matCellDef="let element" class="inactive"> {{element |nombreApellido }} </mat-cell>

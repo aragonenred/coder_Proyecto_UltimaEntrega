@@ -14,6 +14,7 @@ import { LoginModule } from './core/login/login.module';
 import { InicioComponent } from './core/inicio/inicio.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

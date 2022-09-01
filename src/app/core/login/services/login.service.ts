@@ -79,19 +79,21 @@ export class LoginService {
           this.sesionSubject.next({
                                   sesionActiva:true,
                                   usuario: {username: usuarios.username,
-                                            password: usuarios.password }
+                                            password: usuarios.password,
+                                            perfil: usuarios.perfil,
+                                            habilitado: usuarios.habilitado}
                                   });
-        console.log("true");
         this.router.navigate(['/inicio']);
         }else{
-          alert("Usuario no encontrado!");
+          alert("No se pudo iniciar sesion. \n ¿Están bien el usuario y la contraseña? 🤔");
         }
       });
   }
 
   cerrarSesion(){
     const sesion: Sesion = {sesionActiva :false}
-    this.sesionSubject.next(sesion)
+    this.sesionSubject.next(sesion);
+    this.router.navigate(['/login']);
   }
 
   obtenerSesion(){

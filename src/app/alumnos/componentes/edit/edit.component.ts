@@ -23,7 +23,8 @@ export class EditComponent implements OnInit {
       documento: new FormControl(data.documento, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.maxLength(8)]),
       email: new FormControl(data.email, [Validators.required, Validators.email]),
       nacimiento: new FormControl(data.nacimiento, [Validators.required]),
-      pais: new FormControl(data.pais,[Validators.required])
+      pais: new FormControl(data.pais,[Validators.required]),
+      id: new FormControl(data.id)
     });
   }
 

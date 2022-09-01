@@ -1,0 +1,45 @@
+<div class="container container-form" >
+  <h3 style="color:rgba(0, 0, 0, 0.5); font-size: 12px; font-weight: 300; ">Configuración > <span style="font-weight: 600;">Usuarios</span></h3>
+  <form class="form" [formGroup]="formulario"   >
+    <div class="form-group">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" type="text" placeholder="username">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" type="text" placeholder="********" >
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <mat-form-field appearance="legacy">
+            <mat-label>Perfil</mat-label>
+            <mat-select formControlName ="perfil" class="mr-1 select">
+              <mat-option *ngFor="let perfil of perfiles" [value]="perfil">{{perfil}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+      </div><!--Row-->
+    </div><!--Form group-->
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-1 col-md-1">
+          <button mat-raised-button color="secondary" type="submit" style="font-size: 12px;" >Agregar</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+
+</div><!--container-->

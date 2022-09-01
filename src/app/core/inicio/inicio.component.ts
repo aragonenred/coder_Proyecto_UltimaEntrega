@@ -8,21 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  authenticated:boolean = false;
+ // authenticated:boolean = false;
 
   constructor(private loginsevice:LoginService, private router:Router) { }
 
   ngOnInit(): void {
-    this.loginsevice.obtenerSesion().subscribe((sesion)=>{
-      console.log(sesion);
-      if(sesion.sesionActiva){
-        this.authenticated = true;
-      }else{
-        this.authenticated = false;
-        console.log("appcomponent inicio false");
-        this.router.navigate(['login']);
-      }
-    });
+
   }
 
 }

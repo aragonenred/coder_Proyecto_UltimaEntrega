@@ -4,11 +4,13 @@ import { AltaComponent } from './componentes/alta/alta.component';
 import { ListaComponent } from './componentes/lista/lista.component';
 import { AlumnosRoutingModule } from './alumnos-routing.module';
 import { AlumnosComponent } from './alumnos.component';
-import { EdadPipe } from './pipes/edad.pipe';
+
 import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
-import { PaisPipe } from './pipes/pais.pipe';
+
 import { EditComponent } from './componentes/edit/edit.component';
 import { MaterialModule } from '../shared/material/material.module';
+import { SharedModule } from '../shared/shared.module';
+import { PaisPipe } from './pipes/pais.pipe';
 
 
 
@@ -17,16 +19,16 @@ import { MaterialModule } from '../shared/material/material.module';
     AltaComponent,
     ListaComponent,
     AlumnosComponent,
-    EdadPipe,
-    NombreApellidoPipe,
     PaisPipe,
+    NombreApellidoPipe,
     EditComponent
 
   ],
   imports: [
     CommonModule,
     AlumnosRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
 
   ],
   providers:[

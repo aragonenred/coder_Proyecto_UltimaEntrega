@@ -7,6 +7,8 @@ import { InscripcionesAltaComponent } from './componentes/inscripciones-alta/ins
 import { InscripcionesListaComponent } from './componentes/inscripciones-lista/inscripciones-lista.component';
 import { BuscarCursosComponent } from './componentes/buscar-cursos/buscar-cursos.component';
 import { BuscarAlumnosComponent } from './componentes/buscar-alumnos/buscar-alumnos.component';
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { BuscarAlumnosComponent } from './componentes/buscar-alumnos/buscar-alum
   imports: [
     CommonModule,
     InscripcionesRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class InscripcionesModule { }

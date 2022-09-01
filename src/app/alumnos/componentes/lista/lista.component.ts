@@ -5,6 +5,7 @@ import { map, Subscription } from 'rxjs';
 import { Alumnos } from '../../interfaces/alumnos';
 import { AlumnosService } from '../../services/alumnos.service';
 import { EditComponent } from '../edit/edit.component';
+import { CursosEditComponent } from '../../../cursos/componentes/cursos-edit/cursos-edit.component';
 
 @Component({
   selector: 'app-lista',
@@ -15,7 +16,7 @@ export class ListaComponent implements OnInit {
 
   @Input() parentMensaje?: any;
 
-  columnas:string[] = ['nombre', 'documento', 'email', 'nacimiento', 'pais', 'acciones'];
+  columnas:string[] = ['nombre', 'documento', 'email', 'nacimiento', 'pais', 'acciones', 'id'];
   alumnos: Alumnos[]=[];
   alumnosSuscription:Subscription;
   dataSource!: MatTableDataSource<Alumnos> ;
@@ -24,6 +25,7 @@ export class ListaComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private alumnosService:AlumnosService) {
 
+    /*
     //Me suscribo al observable para obtener la lista de alumnos
     this.alumnosSuscription = this.alumnosService.getAlumnosObservable()
       .pipe(
@@ -37,6 +39,24 @@ export class ListaComponent implements OnInit {
           this.renderTable();
         }
       });
+      */
+    //Me suscribo al observable para obtener la lista de alumnos
+    this.alumnosSuscription = this.alumnosService.alumnosSubject.asObservable()
+    .pipe(
+      //Filtro los alumnos no habilitados
+      map((alumnos: any[]) => alumnos.filter(alumno => alumno.habilitado === true))
+    ).subscribe((alumnos)=>{
+      console.log("hubo un next");
+      console.log(alumnos);
+      //Le paso los valores devueltos por el observable al arreglo this.alumnos
+      this.alumnos = alumnos;
+      //Si dataSource se inicializó (pasó por lo menos una vez por el ngOnInit) llamo a la funcion que renderiza la tabla para que actualice los datos
+      if(this.dataSource){
+        this.renderTable();
+      }
+    });
+    //Llamo a la funcion cargarAlumnos para que traiga desde la API y genere un next.
+    alumnosService.cargarAlumnos();
    }
 
   ngOnInit(): void {
@@ -46,14 +66,34 @@ export class ListaComponent implements OnInit {
 
   //Llamo al servicio addAlumno
   agregarAlumno(alumno:Alumnos){
-    this.alumnosService.addAlumno(alumno);
+    //this.alumnosService.addAlumno(alumno);
+    this.alumnosService.crearAlumno(alumno);
   }
 
   eliminarAlumno(elemento: Alumnos){
-    this.alumnosService.deleteAlumno(elemento);
+    if(elemento.id){
+      this.alumnosService.borrarAlumno(elemento.id);
+      this.renderTable();
+    }else{
+      console.log("Error. No se encontró id para borrar");
+    }
   }
 
+  editarAlumno(elemento: Alumnos){
+    const dialogEdit = this.dialog.open(EditComponent,{width:'500px', data: elemento});
+    dialogEdit.afterClosed().subscribe(resultado => {
+      if(resultado){
+        this.alumnosService.editarAlumno(resultado);
+        //const item = this.dataSource.data.find(alumno => alumno.documento === resultado.documento);
+        //const index = this.dataSource.data.indexOf(item!);
+        //this.dataSource.data[index] = resultado;
+        this.tabla.renderRows();
+      }
+    })
 
+  }
+
+  /*Funcion anterior para modificar alumnos
   editarAlumno(elemento: Alumnos){
     const dialogEdit = this.dialog.open(EditComponent,{width:'500px', data: elemento});
     dialogEdit.afterClosed().subscribe(resultado => {
@@ -65,7 +105,7 @@ export class ListaComponent implements OnInit {
       }
     })
 
-  }
+  }*/
 
   //Funcion que renderiza la tabla de alumnos
   renderTable(){

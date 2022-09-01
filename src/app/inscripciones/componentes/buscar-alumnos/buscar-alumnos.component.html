@@ -20,7 +20,7 @@
     </ng-container>
     <ng-container matColumnDef="nacimiento">
       <mat-header-cell *matHeaderCellDef><span appEncabezados>Nacimiento</span></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.nacimiento}} </mat-cell>
+      <mat-cell *matCellDef="let element" style="justify-content:center ;"> {{element.nacimiento |edad}}  </mat-cell>
     </ng-container>
     <ng-container matColumnDef="pais">
       <mat-header-cell *matHeaderCellDef><span appEncabezados>Pais</span></mat-header-cell>

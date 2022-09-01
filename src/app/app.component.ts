@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
         this.authenticated = true;
       }else{
         this.authenticated = false;
-        console.log("appcomponent aut false");
       }
     });
   }

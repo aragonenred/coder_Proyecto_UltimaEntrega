@@ -26,13 +26,23 @@ export class BuscarAlumnosComponent implements OnInit {
     private alumnosService:AlumnosService,
     @Inject(MAT_DIALOG_DATA) public data:Alumnos
   ) {
+    /*Funcion anterior a API
     this.alumnoSuscription = this.alumnosService.getAlumnosObservable()
     .subscribe((alumnos)=>{
       this.alumnos = alumnos;
     });
-    if(this.dataSource){
-      this.renderTable();
-    }
+    */
+    this.alumnoSuscription = this.alumnosService.alumnosSubject.asObservable()
+    .subscribe((alumnos)=>{
+      this.alumnos = alumnos;
+      //Si dataSource se inicializó (pasó por lo menos una vez por el ngOnInit) llamo a la funcion que renderiza la tabla para que actualice los datos
+      if(this.dataSource){
+        this.renderTable();
+      }
+    });
+    //Llamo a la funcion cargarAlumnos para que traiga desde la API y genere un next.
+    alumnosService.cargarAlumnos();
+
    }
 
   cerrar(){

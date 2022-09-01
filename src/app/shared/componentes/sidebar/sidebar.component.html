@@ -32,5 +32,10 @@
       <mat-icon class="mr-1" >settings</mat-icon>
       <h3 class="m-0 " style="font-size: 14px;">Configuracion </h3>
     </div>
+
+    <div class="divisor"></div>
+      <ul>
+        <a routerLink="usuarios/alta" (click)="selected('usuarios')" style="text-decoration:none;" ><li [ngClass]="selectMenu=='usuarios'? 'selected':''">🧍 Usuarios</li></a>
+      </ul>
   </div>
 </div>
