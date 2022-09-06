@@ -3,5 +3,6 @@ export interface Usuarios {
   username: string,
   password: string,
   perfil?: string,
-  habilitado?: boolean
+  habilitado?: boolean,
+  nombre?:string
 }

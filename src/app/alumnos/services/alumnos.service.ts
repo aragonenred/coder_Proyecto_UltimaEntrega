@@ -89,7 +89,7 @@ export class AlumnosService {
   }*/
 
   /**Nuevas funciones para integrar API */
-  private getAlumnos():Observable<Alumnos[]>{
+   getAlumnos():Observable<Alumnos[]>{
     return this.http.get<Alumnos[]>(`${this.api}/alumnos`);
   }
   cargarAlumnos(){

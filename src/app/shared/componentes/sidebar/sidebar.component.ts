@@ -10,8 +10,8 @@ import { LoginService } from '../../../core/login/services/login.service';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
-
-
+ usuarioLogueado?:string;
+ perfilLogueado?:string;
  selectMenu?:string;
  // timeLoginSuscripcion: Subscription;
  timeLogin$:Observable<any>;
@@ -21,6 +21,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
    //this.timeLoginSuscripcion = this.loginService.timeLoginObservable.subscribe((time)=>{
     // this.timeLogin = time;
    //})
+   loginService.obtenerSesion().subscribe((sesion)=>{
+    if(sesion.usuario?.nombre){
+      this.usuarioLogueado = sesion.usuario?.nombre;
+      this.perfilLogueado = sesion.usuario.perfil;
+    }else{
+      this.usuarioLogueado = "Usuario Invitado"
+      this.perfilLogueado = "Invitado";
+    }
+
+   });
    this.timeLogin$ = this.loginService.timeLoginObservable;
   }
 

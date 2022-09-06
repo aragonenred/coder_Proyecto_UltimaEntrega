@@ -8,8 +8,18 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+   usuarioLogueado?:string;
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService) {
+      loginService.obtenerSesion().subscribe((sesion)=>{
+        if(sesion.usuario){
+          this.usuarioLogueado = sesion.usuario.nombre;
+        }else{
+          this.usuarioLogueado = "Invitado";
+        }
+
+      });
+   }
 
   ngOnInit(): void {
   }

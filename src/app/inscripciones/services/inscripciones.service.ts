@@ -14,22 +14,9 @@ export class InscripcionesService {
   inscripcionesSubject:Subject<any>;
   private api:string = environment.api;
 
-  inscripciones: Inscripciones[] =[]/*[
-    {alumno: 'Eduardo Riccillo', dni:'33692758', cursos:[{id:'DW001', titulo: 'Angular', duracion: '4 Semanas' , profesor:"Juan Perez" }]},
-    {alumno: 'Ornela Mazual', dni:'32615758', cursos:[{id:'DW001', titulo: 'Angular', duracion: '4 Semanas' , profesor:"Juan Perez" },
-                                                    {id:'BK001', titulo: 'C#', duracion: '9 Semanas' , profesor:"Fernando Septimo" }]}
-
-  ]
-*/
+  inscripciones: Inscripciones[] =[];
 
   constructor(private http: HttpClient) {
-    /*
-    this.inscripcionesObservable = new Observable<any>((suscriptor)=>{
-      suscriptor.next(this.inscripciones);
-      this.inscripcionesSubject.subscribe((inscripciones)=>{
-        suscriptor.next(this.inscripciones);
-      });
-    });*/
     this.inscripcionesObservable = new Observable<any>((suscriptor)=>{
       suscriptor.next(this.inscripciones);
       this.inscripcionesSubject.subscribe((inscripciones)=>{
@@ -49,20 +36,6 @@ export class InscripcionesService {
     this.inscripciones.push(inscripcion);
     this.inscripcionesSubject.next(this.inscripciones);
    }
-
-  /* deleteInscripciones(elemento:Inscripciones){
-      console.log(elemento);
-      this.inscripciones.forEach((inscripcion, index)=>{
-          if(inscripcion.dni === elemento.dni){
-            this.inscripciones[index].cursos.forEach((curso, indexcurso)=>{
-              if(curso.id === elemento.cursos[0].id){
-                this.inscripciones[index].cursos.splice(indexcurso,1);
-              }
-            })
-          }
-      });
-      this.inscripcionesSubject.next(this.inscripciones);
-   }*/
 
 
    /**Nuevas funciones para integrar API */
@@ -99,6 +72,7 @@ export class InscripcionesService {
 
    }
 
+   /*
    putInscripcion(data:Inscripciones){
      return this.http.put<Inscripciones>(`${this.api}/inscripciones/${data.id}`, data);
    }
@@ -107,10 +81,7 @@ export class InscripcionesService {
         this.cargarInscripciones();
         alert("Se modificó la inscripcion: #" +data.id);
      });
-   }
-
-
-
+   }*/
 
 
 

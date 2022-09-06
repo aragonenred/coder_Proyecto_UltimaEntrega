@@ -81,7 +81,8 @@ export class LoginService {
                                   usuario: {username: usuarios.username,
                                             password: usuarios.password,
                                             perfil: usuarios.perfil,
-                                            habilitado: usuarios.habilitado}
+                                            habilitado: usuarios.habilitado,
+                                            nombre: usuarios.nombre}
                                   });
         this.router.navigate(['/inicio']);
         }else{

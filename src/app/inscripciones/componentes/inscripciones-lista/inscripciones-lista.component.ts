@@ -6,6 +6,7 @@ import { InscripcionesService } from '../../services/inscripciones.service';
 import { Cursos } from '../../../models/cursos';
 import { Alumnos } from '../../../models/alumnos';
 import { ThisReceiver } from '@angular/compiler';
+import { ContentObserver } from '@angular/cdk/observers';
 
 
 
@@ -42,25 +43,11 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
   //Funcion que realiza la carga de la tabla de inscripciones.
   loadTableInscripciones(alumnoActivo:Alumnos){
 
-    /*this.inscripcionesSuscription = this.inscripcionesService.getInscripcionesObservable()
-    .pipe(
-      map((inscripciones:any[])=>inscripciones.filter(inscripcion=>inscripcion.dni == alumnoActivo.documento))
-    )
-    .subscribe((inscripciones)=>{
-      this.inscripciones = inscripciones;
-      if(this.dataSource){
-        this.renderTable();
-      }
-    });
-    this.cargaDataSource();
-    this.renderTable();*/
     this.inscripcionesSuscription = this.inscripcionesService.inscripcionesSubject.asObservable()
     .pipe(
       map((inscripciones:any[])=>inscripciones.filter(inscripcion=>inscripcion.dni == alumnoActivo.documento))
     )
     .subscribe((inscripciones)=>{
-      console.log("loadtable");
-      console.log(inscripciones);
       this.inscripciones = inscripciones;
       if(this.dataSource){
         this.cargaDataSource();
@@ -73,21 +60,8 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
   }
 
   cargaDataSource(){
-    this.dataTableInscripciones.splice(0,this.dataTableInscripciones.length);
-
-    this.inscripciones.forEach((inscripcion, index)=>{
-         this.dataTableInscripciones.push({
-            id: inscripcion.id,
-            alumno: inscripcion.alumno,
-            dni: inscripcion.dni,
-            cursoid: inscripcion.cursoid,
-            curso: inscripcion.curso,
-            duracion: inscripcion.duracion,
-            profesor: inscripcion.profesor
-        });
-      });
-
-    this.dataSource = new MatTableDataSource<Inscripciones>(this.dataTableInscripciones);
+    this.dataTableInscripciones.splice(0,this.inscripciones.length);
+    this.dataSource = new MatTableDataSource<Inscripciones>(this.inscripciones);
   }
 
   filtrar(event:Event){
@@ -96,27 +70,19 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
   }
 
   renderTable(){
-    this.dataSource = new MatTableDataSource(this.dataTableInscripciones);
+    this.dataSource = new MatTableDataSource(this.inscripciones);
     this.tabla.renderRows();
   }
 
   eliminarInscripcion(elemento:Inscripciones){
-
+    if(elemento.id){
+      this.inscripcionesService.borrarInscripcion(elemento.id);
+    }
     this.cargaDataSource();
-
   }
 
   agregarInscripcion(curso:Cursos, alumno:Alumnos){
-      /*this.dataTableInscripciones.push({
-        alumno: alumno.nombre + ' ' + alumno.apellido,
-        dni: alumno.documento,
-        cursoid: curso.id,
-        curso: curso.titulo,
-        duracion: curso.duracion,
-        profesor: curso.profesor
-      });*/
-
-      this.inscripcionesService.addInscripcion(
+      this.inscripcionesService.crearInscripcion(
         {alumno: alumno.nombre,
          dni: alumno.documento,
          id:curso.id,
