@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { Alumnos } from '../../../alumnos/interfaces/alumnos';
+import { Alumnos } from '../../../models/alumnos';
 import { Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource, MatTable } from '@angular/material/table';

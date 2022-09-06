@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { Alumnos } from '../../../alumnos/interfaces/alumnos';
+import { Alumnos } from '../../../models/alumnos';
 import { AlumnosService } from '../../../alumnos/services/alumnos.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -52,7 +52,7 @@ export class InscripcionesAltaComponent implements OnInit {
   }*/
 
   buscarAlumno(){
-    const dialogEdit = this.dialog.open(BuscarAlumnosComponent,{width:'700px', height:'500px'});
+    const dialogEdit = this.dialog.open(BuscarAlumnosComponent,{width:'700px', maxHeight:'500px'});
     dialogEdit.afterClosed().subscribe((resultado) => {
       if(resultado){
         this.alumnoActivo = resultado;
@@ -73,7 +73,7 @@ export class InscripcionesAltaComponent implements OnInit {
   }*/
 
   agregarCurso(){
-    const dialogEdit = this.dialog.open(BuscarCursosComponent,{width:'700px'});
+    const dialogEdit = this.dialog.open(BuscarCursosComponent,{width:'700px', maxHeight:'500px'});
     dialogEdit.afterClosed().subscribe((resultado) => {
       if(resultado){
         this.tablaInscripciones?.agregarInscripcion(resultado, this.alumnoActivo);

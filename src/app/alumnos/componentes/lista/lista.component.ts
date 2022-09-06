@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { map, Subscription } from 'rxjs';
-import { Alumnos } from '../../interfaces/alumnos';
+import { Alumnos } from '../../../models/alumnos';
 import { AlumnosService } from '../../services/alumnos.service';
 import { EditComponent } from '../edit/edit.component';
 import { CursosEditComponent } from '../../../cursos/componentes/cursos-edit/cursos-edit.component';
@@ -46,8 +46,6 @@ export class ListaComponent implements OnInit {
       //Filtro los alumnos no habilitados
       map((alumnos: any[]) => alumnos.filter(alumno => alumno.habilitado === true))
     ).subscribe((alumnos)=>{
-      console.log("hubo un next");
-      console.log(alumnos);
       //Le paso los valores devueltos por el observable al arreglo this.alumnos
       this.alumnos = alumnos;
       //Si dataSource se inicializó (pasó por lo menos una vez por el ngOnInit) llamo a la funcion que renderiza la tabla para que actualice los datos
@@ -84,9 +82,6 @@ export class ListaComponent implements OnInit {
     dialogEdit.afterClosed().subscribe(resultado => {
       if(resultado){
         this.alumnosService.editarAlumno(resultado);
-        //const item = this.dataSource.data.find(alumno => alumno.documento === resultado.documento);
-        //const index = this.dataSource.data.indexOf(item!);
-        //this.dataSource.data[index] = resultado;
         this.tabla.renderRows();
       }
     })

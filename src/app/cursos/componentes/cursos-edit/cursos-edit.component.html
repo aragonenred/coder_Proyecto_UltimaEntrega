@@ -2,15 +2,6 @@
   <form class="form" [formGroup]="formulario">
     <div class="form-group">
       <div class="row">
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="legacy">
-            <mat-label>Id</mat-label>
-            <input matInput formControlName="id" type="text" placeholder="WS000" >
-          </mat-form-field>
-          <i class="fas fa-check-circle valid-icon" *ngIf="!formulario.get('id')?.errors"></i>
-          <i class="fas fa-times-circle invalid-icon" *ngIf="formulario.get('id')?.errors && formulario.get('id')?.touched" ></i>
-          <p><small class="alert-text" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched" >*Ingresa el Id</small></p>
-        </div>
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="legacy">

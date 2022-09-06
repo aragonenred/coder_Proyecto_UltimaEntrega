@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { Inscripciones } from '../../interfaces/inscripciones';
+import { Inscripciones } from '../../../models/inscripciones';
 import { Subscription, map } from 'rxjs';
 import { InscripcionesService } from '../../services/inscripciones.service';
-import { Cursos } from '../../../cursos/interfaces/cursos';
-import { Alumnos } from '../../../alumnos/interfaces/alumnos';
+import { Cursos } from '../../../models/cursos';
+import { Alumnos } from '../../../models/alumnos';
+import { ThisReceiver } from '@angular/compiler';
 
-
-export interface DataTableInscripciones { alumno: string, dni: string, cursoid: string, curso: string, duracion: string, profesor: string}
 
 
 @Component({
@@ -20,10 +19,10 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
   columnas:string[] = ['alumno', 'dni', 'cursoid', 'curso', 'profesor', 'acciones'];
   inscripciones:Inscripciones[] = [];
   inscripcionesSuscription!: Subscription;
-  dataTableInscripciones:DataTableInscripciones[]=[];
-  dataSource!:MatTableDataSource<DataTableInscripciones>;
+  dataTableInscripciones:Inscripciones[]=[];
+  dataSource!:MatTableDataSource<Inscripciones>;
 
-  @ViewChild(MatTable) tabla!:MatTable<DataTableInscripciones>;
+  @ViewChild(MatTable) tabla!:MatTable<Inscripciones>;
 
   constructor(private inscripcionesService:InscripcionesService) {
 
@@ -42,7 +41,8 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
 
   //Funcion que realiza la carga de la tabla de inscripciones.
   loadTableInscripciones(alumnoActivo:Alumnos){
-    this.inscripcionesSuscription = this.inscripcionesService.getInscripcionesObservable()
+
+    /*this.inscripcionesSuscription = this.inscripcionesService.getInscripcionesObservable()
     .pipe(
       map((inscripciones:any[])=>inscripciones.filter(inscripcion=>inscripcion.dni == alumnoActivo.documento))
     )
@@ -53,25 +53,41 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
       }
     });
     this.cargaDataSource();
+    this.renderTable();*/
+    this.inscripcionesSuscription = this.inscripcionesService.inscripcionesSubject.asObservable()
+    .pipe(
+      map((inscripciones:any[])=>inscripciones.filter(inscripcion=>inscripcion.dni == alumnoActivo.documento))
+    )
+    .subscribe((inscripciones)=>{
+      console.log("loadtable");
+      console.log(inscripciones);
+      this.inscripciones = inscripciones;
+      if(this.dataSource){
+        this.cargaDataSource();
+        this.renderTable();
+
+      }
+    });
+    this.inscripcionesService.cargarInscripciones();
     this.renderTable();
   }
 
   cargaDataSource(){
     this.dataTableInscripciones.splice(0,this.dataTableInscripciones.length);
+
     this.inscripciones.forEach((inscripcion, index)=>{
-      inscripcion.cursos.forEach((curso, index)=>{
-        this.dataTableInscripciones.push({
+         this.dataTableInscripciones.push({
+            id: inscripcion.id,
             alumno: inscripcion.alumno,
             dni: inscripcion.dni,
-            cursoid: curso.id,
-            curso: curso.titulo,
-            duracion: curso.duracion,
-            profesor: curso.profesor
+            cursoid: inscripcion.cursoid,
+            curso: inscripcion.curso,
+            duracion: inscripcion.duracion,
+            profesor: inscripcion.profesor
         });
       });
 
-    });
-    this.dataSource = new MatTableDataSource<DataTableInscripciones>(this.dataTableInscripciones);
+    this.dataSource = new MatTableDataSource<Inscripciones>(this.dataTableInscripciones);
   }
 
   filtrar(event:Event){
@@ -84,17 +100,8 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
     this.tabla.renderRows();
   }
 
-  eliminarInscripcion(elemento:DataTableInscripciones){
-    let data:Inscripciones = {
-          alumno: elemento.alumno,
-          dni: elemento.dni,
-          cursos:[{id: elemento.cursoid,
-                   titulo:elemento.curso,
-                   duracion:elemento.duracion,
-                   profesor:elemento.profesor}]
-    };
+  eliminarInscripcion(elemento:Inscripciones){
 
-    this.inscripcionesService.deleteInscripciones(data);
     this.cargaDataSource();
 
   }
@@ -112,11 +119,11 @@ export class InscripcionesListaComponent implements OnInit, OnDestroy {
       this.inscripcionesService.addInscripcion(
         {alumno: alumno.nombre,
          dni: alumno.documento,
-         cursos:[{ id:curso.id,
-                   titulo: curso.titulo,
-                   duracion:curso.duracion,
-                   profesor:curso.profesor}]
-        });
+         id:curso.id,
+         curso: curso.titulo,
+         duracion:curso.duracion,
+         profesor:curso.profesor}
+      );
         this.cargaDataSource();
   }
 

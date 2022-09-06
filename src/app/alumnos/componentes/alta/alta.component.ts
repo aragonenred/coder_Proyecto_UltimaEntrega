@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListaComponent } from '../lista/lista.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Alumnos } from '../../interfaces/alumnos';
+import { Alumnos } from '../../../models/alumnos';
 import { AlumnosService } from '../../services/alumnos.service';
 
 @Component({

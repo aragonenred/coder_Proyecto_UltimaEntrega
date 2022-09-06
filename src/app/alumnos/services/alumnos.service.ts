@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Alumnos } from '../interfaces/alumnos';
+import { Alumnos } from '../../models/alumnos';
 import { observable, Observable, Observer, Subject, Subscriber, BehaviorSubject } from 'rxjs';
 import { SubscribableOrPromise } from 'rxjs';
 import { HttpClient } from '@angular/common/http';

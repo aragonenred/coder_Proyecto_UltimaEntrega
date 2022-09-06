@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Cursos } from '../../interfaces/cursos';
-import { Subscription } from 'rxjs';
+import { Cursos } from '../../../models/cursos';
+import { Subscription, map } from 'rxjs';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CursosService } from '../../services/cursos.service';
@@ -23,13 +23,23 @@ export class CursosListaComponent implements OnInit {
   @ViewChild(MatTable) tabla!:MatTable<Cursos>;
 
   constructor(private dialog: MatDialog, private cursosService:CursosService) {
-      this.cursosSuscription = this.cursosService.getCursosObservable()
+      /*this.cursosSuscription = this.cursosService.getCursosObservable()
+      .subscribe((cursos)=>{
+        this.cursos = cursos;
+        if(this.dataSource){
+          this.renderTable();
+        }
+      });*/
+      this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
       .subscribe((cursos)=>{
         this.cursos = cursos;
         if(this.dataSource){
           this.renderTable();
         }
       });
+
+      cursosService.cargarCursos();
+
    }
 
   ngOnInit(): void {
@@ -42,9 +52,26 @@ export class CursosListaComponent implements OnInit {
   }
 
   eliminarCurso(elemento:Cursos){
-    this.cursosService.deleteCurso(elemento);
+    if(elemento.id){
+      this.cursosService.borrarCurso(elemento.id);
+      this.renderTable();
+    }else{
+      console.log("Error, No se encontró id para borrar");
+    }
   }
 
+  editarCurso(elemento: Cursos){
+    const dialogEdit = this.dialog.open(CursosEditComponent,{width:'500px', data: elemento});
+    dialogEdit.afterClosed().subscribe(resultado => {
+      if(resultado){
+        this.cursosService.edutarCursos(resultado);
+        this.tabla.renderRows();
+      }
+    })
+  }
+
+
+  /*Funcion anterior para modificar cursos
   editarCurso(elemento: Cursos){
     const dialogEdit = this.dialog.open(CursosEditComponent,{width:'500px', data: elemento});
     dialogEdit.afterClosed().subscribe(resultado => {
@@ -55,8 +82,7 @@ export class CursosListaComponent implements OnInit {
         this.tabla.renderRows();
       }
     })
-
-  }
+  }*/
 
   renderTable(){
     this.dataSource = new MatTableDataSource(this.cursos);

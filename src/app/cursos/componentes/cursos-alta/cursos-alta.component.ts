@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Cursos } from '../../interfaces/cursos';
+import { Cursos } from '../../../models/cursos';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CursosService } from '../../services/cursos.service';
 import { CursosListaComponent } from '../cursos-lista/cursos-lista.component';
