@@ -6,6 +6,8 @@ import { CursosEditComponent } from './componentes/cursos-edit/cursos-edit.compo
 import { CursosAltaComponent } from './componentes/cursos-alta/cursos-alta.component';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { MaterialModule } from '../shared/material/material.module';
+import { StoreModule } from '@ngrx/store';
+import * as fromCursos from './state/cursos.reducer';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { MaterialModule } from '../shared/material/material.module';
     CommonModule,
     CursosRoutingModule,
     MaterialModule,
+    StoreModule.forFeature(fromCursos.cursosFeatureKey, fromCursos.reducer)
 
   ]
 })

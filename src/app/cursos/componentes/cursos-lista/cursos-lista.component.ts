@@ -1,10 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Cursos } from '../../../models/cursos';
-import { Subscription, map } from 'rxjs';
+import { Subscription, map, Observable } from 'rxjs';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CursosService } from '../../services/cursos.service';
 import { CursosEditComponent } from '../cursos-edit/cursos-edit.component';
+import { Store } from '@ngrx/store';
+import { CursoState } from '../../state/cursos.reducer';
+import { cargarCursos, cursosCargados } from '../../state/cursos.actions';
+import { selectCargandoState, selectCursosCargadosState } from '../../state/cursos.selectors';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -13,16 +17,25 @@ import { CursosEditComponent } from '../cursos-edit/cursos-edit.component';
 })
 export class CursosListaComponent implements OnInit {
 
+  cargando$!: Observable<boolean>;
+  cursos$!: Observable<Cursos[] | undefined>;
+
+  cursos2:Cursos[]|undefined
+
   @Input() parentMesaje?:any;
 
   columnas:string[]=['id', 'titulo', 'duracion', 'profesor', 'acciones'];
   cursos:Cursos[] = [];
-  cursosSuscription: Subscription;
+  cursosSuscription!: Subscription;
   dataSource!: MatTableDataSource<Cursos>;
 
   @ViewChild(MatTable) tabla!:MatTable<Cursos>;
 
-  constructor(private dialog: MatDialog, private cursosService:CursosService) {
+  constructor(
+    private dialog: MatDialog,
+    private cursosService:CursosService,
+    private store:Store<CursoState>,
+    ) {
       /*this.cursosSuscription = this.cursosService.getCursosObservable()
       .subscribe((cursos)=>{
         this.cursos = cursos;
@@ -30,7 +43,7 @@ export class CursosListaComponent implements OnInit {
           this.renderTable();
         }
       });*/
-      this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
+     /* this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
       .subscribe((cursos)=>{
         this.cursos = cursos;
         if(this.dataSource){
@@ -38,17 +51,39 @@ export class CursosListaComponent implements OnInit {
         }
       });
 
-      cursosService.cargarCursos();
+      cursosService.cargarCursos();*/
 
    }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Cursos>(this.cursos);
 
+    /**Implemento el store (REDUX) */
+    this.store.dispatch(cargarCursos());
+
+    this.cursosService.cursosSubject.asObservable().subscribe((cursos)=>{
+
+      //Hago dispatch cada vez que se actualizan los datos en la API
+      this.store.dispatch(cursosCargados({
+        cursos: cursos
+      }));
+
+    });
+    this.cursosService.cargarCursos();
+    this.cargando$ = this.store.select(selectCargandoState);
+    this.cursos$ = this.store.select(selectCursosCargadosState);
+
+    /**Cargo la tabla */
+    this.cursos$.subscribe((data)=>{
+      this.cursos2 = data;
+      this.renderTable();
+    });
+
   }
 
   agregarCurso(curso:Cursos){
-    this.cursosService.addCurso(curso);
+   // this.cursosService.addCurso(curso);
+    this.cursosService.crearCurso(curso);
   }
 
   eliminarCurso(elemento:Cursos){
@@ -85,7 +120,8 @@ export class CursosListaComponent implements OnInit {
   }*/
 
   renderTable(){
-    this.dataSource = new MatTableDataSource(this.cursos);
+
+   this.dataSource = new MatTableDataSource(this.cursos2);
     this.tabla.renderRows();
   }
 

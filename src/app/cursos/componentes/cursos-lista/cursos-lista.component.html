@@ -1,4 +1,5 @@
-<div class="mat-elevation-z8 mt-3 mb-3" >
+<h1 *ngIf="(cargando$ |async)">Cargando...</h1>
+<div class="mat-elevation-z8 mt-3 mb-3" *ngIf="!(cargando$ |async)" >
   <mat-form-field class="ml-3 mt-1">
     <mat-label>Buscar</mat-label>
     <input type="text" (keyup)="filtrar($event)" matInput>

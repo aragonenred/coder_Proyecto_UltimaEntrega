@@ -98,5 +98,9 @@ export class CursosService {
     });
    }
 
+   /**Implementa Redux */
+   obtenerCursos():Observable<Cursos[]>{
+    return this.http.get<Cursos[]>(`${this.api}/curso`);
+   }
 
 }
