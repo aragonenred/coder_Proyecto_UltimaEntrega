@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Cursos } from '../../../models/cursos';
 import { Subscription, map, Observable } from 'rxjs';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -9,14 +9,14 @@ import { Store } from '@ngrx/store';
 import { CursoState } from '../../state/cursos.reducer';
 import { cargarCursos, cursosCargados } from '../../state/cursos.actions';
 import { selectCargandoState, selectCursosCargadosState } from '../../state/cursos.selectors';
-import { async } from '@angular/core/testing';
+
 
 @Component({
   selector: 'app-cursos-lista',
   templateUrl: './cursos-lista.component.html',
   styleUrls: ['./cursos-lista.component.css']
 })
-export class CursosListaComponent implements OnInit {
+export class CursosListaComponent implements OnInit, OnDestroy {
 
   cargando$!: Observable<boolean>;
   cursos$!: Observable<Cursos[] | undefined>;
@@ -37,24 +37,7 @@ export class CursosListaComponent implements OnInit {
     private cursosService:CursosService,
     private store:Store<CursoState>,
     ) {
-      /*this.cursosSuscription = this.cursosService.getCursosObservable()
-      .subscribe((cursos)=>{
-        this.cursos = cursos;
-        if(this.dataSource){
-          this.renderTable();
         }
-      });*/
-     /* this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
-      .subscribe((cursos)=>{
-        this.cursos = cursos;
-        if(this.dataSource){
-          this.renderTable();
-        }
-      });
-
-      cursosService.cargarCursos();*/
-
-   }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Cursos>(this.cursos);
@@ -65,7 +48,6 @@ export class CursosListaComponent implements OnInit {
 
     /**Al implementar effects ya no aplica esta funcion */
     /*this.cursosService.cursosSubject.asObservable().subscribe((cursos)=>{
-
       //Hago dispatch cada vez que se actualizan los datos en la API
       this.store.dispatch(cursosCargados({
         cursos: cursos
@@ -84,9 +66,13 @@ export class CursosListaComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    if(this.cursosSuscription){
+      this.cursosSuscription.unsubscribe();
+    }
+  }
+
   agregarCurso(curso:Cursos){
-   // this.cursosService.addCurso(curso);
-   // this.cursosService.crearCurso(curso);
    this.cursosService.postCursos(curso).subscribe(()=>{
     this.store.dispatch(cargarCursos());
     alert("Curso Agregado!");
@@ -96,7 +82,6 @@ export class CursosListaComponent implements OnInit {
 
   eliminarCurso(elemento:Cursos){
     if(elemento.id){
-     // this.cursosService.borrarCurso(elemento.id);
      this.cursosService.deteleCurso(elemento.id).subscribe(()=>{
       this.store.dispatch(cargarCursos());
       alert("Se eliminó el curso: #:" + elemento.id);
@@ -117,18 +102,6 @@ export class CursosListaComponent implements OnInit {
   }
 
 
-  /*Funcion anterior para modificar cursos
-  editarCurso(elemento: Cursos){
-    const dialogEdit = this.dialog.open(CursosEditComponent,{width:'500px', data: elemento});
-    dialogEdit.afterClosed().subscribe(resultado => {
-      if(resultado){
-        const item = this.dataSource.data.find(curso => curso.id === resultado.id);
-        const index = this.dataSource.data.indexOf(item!);
-        this.dataSource.data[index] = resultado;
-        this.tabla.renderRows();
-      }
-    })
-  }*/
 
   renderTable(){
     if(this.cursos){
