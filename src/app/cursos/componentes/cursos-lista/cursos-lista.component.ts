@@ -61,7 +61,8 @@ export class CursosListaComponent implements OnInit {
     /**Implemento el store (REDUX) */
     this.store.dispatch(cargarCursos());
 
-    this.cursosService.cursosSubject.asObservable().subscribe((cursos)=>{
+    /**Al implementar effects ya no aplica esta funcion */
+    /*this.cursosService.cursosSubject.asObservable().subscribe((cursos)=>{
 
       //Hago dispatch cada vez que se actualizan los datos en la API
       this.store.dispatch(cursosCargados({
@@ -69,7 +70,7 @@ export class CursosListaComponent implements OnInit {
       }));
 
     });
-    this.cursosService.cargarCursos();
+    this.cursosService.cargarCursos();*/
     this.cargando$ = this.store.select(selectCargandoState);
     this.cursos$ = this.store.select(selectCursosCargadosState);
 

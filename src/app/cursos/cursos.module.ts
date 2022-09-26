@@ -8,6 +8,8 @@ import { CursosRoutingModule } from './cursos-routing.module';
 import { MaterialModule } from '../shared/material/material.module';
 import { StoreModule } from '@ngrx/store';
 import * as fromCursos from './state/cursos.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CursosEffects } from './state/cursos.effects';
 
 
 @NgModule({
@@ -21,8 +23,8 @@ import * as fromCursos from './state/cursos.reducer';
     CommonModule,
     CursosRoutingModule,
     MaterialModule,
-    StoreModule.forFeature(fromCursos.cursosFeatureKey, fromCursos.reducer)
-
+    StoreModule.forFeature(fromCursos.cursosFeatureKey, fromCursos.reducer),
+    EffectsModule.forFeature([CursosEffects])
   ]
 })
 export class CursosModule { }
