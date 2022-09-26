@@ -73,7 +73,7 @@ export class ListaComponent implements OnInit {
       this.alumnosService.borrarAlumno(elemento.id);
       this.renderTable();
     }else{
-      console.log("Error. No se encontró id para borrar");
+      alert("Error. No se encontró id para borrar");
     }
   }
 

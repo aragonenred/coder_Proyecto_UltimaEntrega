@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { CursoState } from '../../state/cursos.reducer';
 import { cargarCursos, cursosCargados } from '../../state/cursos.actions';
 import { selectCargandoState, selectCursosCargadosState } from '../../state/cursos.selectors';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -20,12 +21,12 @@ export class CursosListaComponent implements OnInit {
   cargando$!: Observable<boolean>;
   cursos$!: Observable<Cursos[] | undefined>;
 
-  cursos2:Cursos[]|undefined
+  cursos:Cursos[]|undefined
 
   @Input() parentMesaje?:any;
 
   columnas:string[]=['id', 'titulo', 'duracion', 'profesor', 'acciones'];
-  cursos:Cursos[] = [];
+  //cursos:Cursos[] = [];
   cursosSuscription!: Subscription;
   dataSource!: MatTableDataSource<Cursos>;
 
@@ -60,6 +61,7 @@ export class CursosListaComponent implements OnInit {
 
     /**Implemento el store (REDUX) */
     this.store.dispatch(cargarCursos());
+    this.cargando$ = this.store.select(selectCargandoState);
 
     /**Al implementar effects ya no aplica esta funcion */
     /*this.cursosService.cursosSubject.asObservable().subscribe((cursos)=>{
@@ -71,12 +73,12 @@ export class CursosListaComponent implements OnInit {
 
     });
     this.cursosService.cargarCursos();*/
-    this.cargando$ = this.store.select(selectCargandoState);
+
     this.cursos$ = this.store.select(selectCursosCargadosState);
 
     /**Cargo la tabla */
     this.cursos$.subscribe((data)=>{
-      this.cursos2 = data;
+      this.cursos = data;
       this.renderTable();
     });
 
@@ -84,15 +86,23 @@ export class CursosListaComponent implements OnInit {
 
   agregarCurso(curso:Cursos){
    // this.cursosService.addCurso(curso);
-    this.cursosService.crearCurso(curso);
+   // this.cursosService.crearCurso(curso);
+   this.cursosService.postCursos(curso).subscribe(()=>{
+    this.store.dispatch(cargarCursos());
+    alert("Curso Agregado!");
+   });
+
   }
 
   eliminarCurso(elemento:Cursos){
     if(elemento.id){
-      this.cursosService.borrarCurso(elemento.id);
-      this.renderTable();
+     // this.cursosService.borrarCurso(elemento.id);
+     this.cursosService.deteleCurso(elemento.id).subscribe(()=>{
+      this.store.dispatch(cargarCursos());
+      alert("Se eliminó el curso: #:" + elemento.id);
+     });
     }else{
-      console.log("Error, No se encontró id para borrar");
+      alert("Error, No se encontró id para borrar");
     }
   }
 
@@ -121,9 +131,12 @@ export class CursosListaComponent implements OnInit {
   }*/
 
   renderTable(){
-
-   this.dataSource = new MatTableDataSource(this.cursos2);
-    this.tabla.renderRows();
+    if(this.cursos){
+      this.dataSource = new MatTableDataSource(this.cursos);
+      if(this.tabla){
+        this.tabla.renderRows();
+      }
+    }
   }
 
   filtrar(event: Event){

@@ -65,18 +65,23 @@ export class CursosService {
     });
    }
 
-   private postCursos(data:Cursos){
+   postCursos(data:Cursos){
     return this.http.post(`${this.api}/curso`, data);
    }
-   crearCurso(data:Cursos){
+
+   /**Discontinuada al implementar redux* */
+  /* crearCurso(data:Cursos){
     this.postCursos(data).subscribe(()=>{
       this.cargarCursos();
     });
-   }
+   }*/
 
-   private deteleCurso(id:string){
+   deteleCurso(id:string){
     return this.http.delete<Cursos>(`${this.api}/curso/${id}`);
    }
+
+   /**Discontinuada al implementar Redux */
+   /*
    borrarCurso(id:string){
     if(id){
       this.deteleCurso(id).subscribe(()=>{
@@ -86,7 +91,7 @@ export class CursosService {
     }else{
       console.log("No se encontro el id del curso");
     }
-   }
+   }*/
 
    private putCursos(data:Cursos){
     return this.http.put<Cursos>(`${this.api}/curso/${data.id}`,data);

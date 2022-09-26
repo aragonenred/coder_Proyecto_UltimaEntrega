@@ -21,7 +21,7 @@ export class PerfilAdminGuard implements CanActivate {
         if(sesion.usuario?.perfil === 'admin'){
           return true
         }else{
-          console.log(sesion.usuario?.perfil);
+          //console.log(sesion.usuario?.perfil);
           alert("No tenes permisos para acceder a este módulo!");
           return false
         }

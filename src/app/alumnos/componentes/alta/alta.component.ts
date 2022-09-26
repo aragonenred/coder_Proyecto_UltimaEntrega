@@ -34,7 +34,7 @@ export class AltaComponent implements OnInit {
         this.paises = paises;
       })
       .catch((error)=>{
-        console.log(error);
+        alert(error);
       });
 
 

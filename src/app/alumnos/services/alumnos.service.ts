@@ -119,7 +119,7 @@ export class AlumnosService {
 
       });
     }else{
-      console.log("No se encontro el id del alumno");
+      alert("No se encontro el id del alumno");
     }
   }
 

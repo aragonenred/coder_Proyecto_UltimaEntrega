@@ -67,7 +67,7 @@ export class InscripcionesService {
         alert("Se eliminó la inscripcion: #" + id);
       })
     }else{
-      console.log("No se encontró el id de la inscripcion");
+      alert("No se encontró el id de la inscripcion");
     }
 
    }
