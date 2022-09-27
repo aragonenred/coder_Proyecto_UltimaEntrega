@@ -128,24 +128,3 @@ export class LoginService {
 
 }
 
-
-/*
-()=>{
-        let seconds:number = 50;
-        let minutes:number = 59;
-        let hours:number = 0;
-        let time:string = hours + ':' + minutes + ':' + seconds;
-        setInterval(()=>{
-            seconds++;
-            if(seconds>59){
-              minutes++;
-              seconds = 0;
-            }
-            if(minutes>59){
-              hours++;
-              minutes =0;
-            }
-        }, 1000);
-        return time;
-      });
-      */

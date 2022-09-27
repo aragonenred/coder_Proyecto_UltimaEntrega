@@ -26,12 +26,7 @@ export class BuscarAlumnosComponent implements OnInit {
     private alumnosService:AlumnosService,
     @Inject(MAT_DIALOG_DATA) public data:Alumnos
   ) {
-    /*Funcion anterior a API
-    this.alumnoSuscription = this.alumnosService.getAlumnosObservable()
-    .subscribe((alumnos)=>{
-      this.alumnos = alumnos;
-    });
-    */
+
     this.alumnoSuscription = this.alumnosService.alumnosSubject.asObservable()
     .subscribe((alumnos)=>{
       this.alumnos = alumnos;

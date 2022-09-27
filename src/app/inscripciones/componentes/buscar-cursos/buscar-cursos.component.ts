@@ -26,23 +26,16 @@ export class BuscarCursosComponent implements OnInit {
     private cursosService:CursosService,
     @Inject(MAT_DIALOG_DATA) public data:Cursos
   ) {
-    /*this.cursosSuscription = this.cursosService.getCursosObservable()
-    .subscribe((cursos)=>{
-      this.cursos = cursos;
-      if(this.dataSource){
-        this.renderTable();
-      }
-    });*/
 
-    this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
-    .subscribe((cursos)=>{
-      this.cursos = cursos;
-      if(this.dataSource){
-        this.renderTable();
-      }
-    });
+      this.cursosSuscription = this.cursosService.cursosSubject.asObservable()
+      .subscribe((cursos)=>{
+        this.cursos = cursos;
+        if(this.dataSource){
+          this.renderTable();
+        }
+      });
 
-    cursosService.cargarCursos();
+      cursosService.cargarCursos();
 
 
    }

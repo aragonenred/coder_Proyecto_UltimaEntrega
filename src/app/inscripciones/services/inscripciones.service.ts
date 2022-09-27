@@ -72,16 +72,7 @@ export class InscripcionesService {
 
    }
 
-   /*
-   putInscripcion(data:Inscripciones){
-     return this.http.put<Inscripciones>(`${this.api}/inscripciones/${data.id}`, data);
-   }
-   editarInscripcion(data:Inscripciones){
-     this.putInscripcion(data).subscribe(()=>{
-        this.cargarInscripciones();
-        alert("Se modificó la inscripcion: #" +data.id);
-     });
-   }*/
+
 
 
 

@@ -17,39 +17,18 @@ export class InscripcionesAltaComponent implements OnInit {
 
   dataSource!: MatTableDataSource<Alumnos>;
   columnas:string[]=['nombre', 'apellido', 'accion'];
-  //alumnos:Alumnos[] = [];
-  //alumnosSuscrition!: Subscription;
   alumnoActivo!:Alumnos;
- // @ViewChild(MatTable) tabla!:MatTable<Alumnos>;
+
   @ViewChild(InscripcionesListaComponent) tablaInscripciones?:InscripcionesListaComponent;
 
-  //showTableAlumnos:boolean = false;
 
   constructor(private alumnosService:AlumnosService, private dialog:MatDialog) {
-    /*this.alumnosSuscrition = this.alumnosService.getAlumnosObservable()
-    .subscribe((alumnos)=>{
-      this.alumnos = alumnos;
-      if(this.dataSource){
-        this.renderTable();
-      }
-    });*/
+
   }
 
   ngOnInit(): void {
-   // this.dataSource = new MatTableDataSource<Alumnos>(this.alumnos)
+
   }
-
-  /*
-  keyDownNombre(event:Event){
-    const valorObtenido = (event.target as HTMLInputElement).value;
-    if(valorObtenido !=''){
-      this.showTableAlumnos = true;
-      this.filtrar(event);
-    }else{
-      this.showTableAlumnos=false;
-    }
-
-  }*/
 
   buscarAlumno(){
     const dialogEdit = this.dialog.open(BuscarAlumnosComponent,{width:'700px', maxHeight:'500px'});
@@ -67,10 +46,7 @@ export class InscripcionesAltaComponent implements OnInit {
     this.dataSource.filter = valorObtenido.trim().toLocaleLowerCase();
   }
 
- /* renderTable(){
-    this.dataSource = new MatTableDataSource(this.alumnos);
-    this.tabla.renderRows();
-  }*/
+
 
   agregarCurso(){
     const dialogEdit = this.dialog.open(BuscarCursosComponent,{width:'700px', maxHeight:'500px'});

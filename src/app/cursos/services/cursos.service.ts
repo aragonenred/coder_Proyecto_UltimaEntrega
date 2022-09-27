@@ -14,12 +14,7 @@ export class CursosService {
   api:string = environment.api;
 
 
-  cursos: Cursos[] =[]/*[
-    {id:'DW001', titulo: 'Angular', duracion: '4 Semanas' , profesor:"Juan Perez" },
-    {id:'BK001', titulo: 'C#', duracion: '9 Semanas' , profesor:"Fernando Septimo" },
-    {id:'DB001', titulo: 'SQL', duracion: '5 Semanas' , profesor:"Mario Sosa" }
-  ]*/
-
+  cursos: Cursos[] =[]
 
   constructor(private http:HttpClient) {
     this.cursosObservable = new Observable<any>((suscriptor)=>{
@@ -45,15 +40,6 @@ export class CursosService {
     this.cursosSubject.next(this.cursos);
    }
 
-   /*funcion anterior para borrar cursos
-   deleteCurso(elemento:Cursos){
-    this.cursos.forEach((curso, index) =>{
-        if(curso.id === elemento.id){
-          this.cursos.splice(index, 1);
-        }
-    });
-    this.cursosSubject.next(this.cursos);
-   }*/
 
    /***Nuevas funciones para integrar API */
    private getCursos():Observable<Cursos[]>{

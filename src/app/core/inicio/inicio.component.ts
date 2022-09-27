@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
- // authenticated:boolean = false;
+
 
   constructor(private loginsevice:LoginService, private router:Router) { }
 
