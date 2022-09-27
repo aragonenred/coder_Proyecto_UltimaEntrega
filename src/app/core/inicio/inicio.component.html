@@ -1,1 +1,56 @@
 <h3>Bienvenido 😀</h3>
+
+<h2>Criterios de Aceptacion Trabajo Final</h2>
+
+<h4>Patron Redux:</h4>
+<p>Aplicado en feature Cursos.</p>
+
+<h4>API:</h4>
+<p> Se implementan los metodos get, post, delete y put en los servicios:</p>
+<ul>
+  <li>alumnos.service.ts</li>
+  <li>cursos.service.ts</li>
+  <li>usuarios.service.ts</li>
+  <li>inscripciones.service.ts</li>
+</ul>
+
+<h4>Login: </h4>
+<p>core/login/loginModule.ts: Para loguearse se pueden usar los usuarios: admin 123456, user 123456</p>
+
+<h4>Guards:</h4>
+<p>core/auth.guard: Valida que este logueado un usuario para acceder a las rutas</p>
+<p>core/perfil-admin.guard: Valida que el perfil de usuario sea "admin" para ingresar a la ruta /usuarios/</p>
+
+
+<h4>Lazzy Loading:</h4>
+<p>Se aplica loadChildren en todas las rutas.</p>
+
+
+<h4>Pruebas Unitarias:</h4>
+<p>Pruebas Unitarias Modulo: alumnos/componentes/alta/alta.component.spec.ts</p>
+<p>Pruebas Unitarias servicio: alumnos/services/alumnos.service.spec.ts</p>
+
+<h4>Modulos</h4>
+<p>Alumnos: Se pueden realizar el ABM de alumnos.</p>
+<p>Cursos: Se puede realizar el ABM de cursos.</p>
+<p>Inscripciones: Se pueden realizar las asignaciones de cursos a los alumnos. <br>Al buscar un alumno se muestra en la tabla los cursos a los que se encuentra inscripto. <br> Se pueden eliminar las inscripciones del alumno. </p>
+<p>Core: Contiene los servicios de login</p>
+<p>Shared: Contiene el navbar y el sidebar. Contiene el modulo Material para importar todo lo relacionado con Angular Material. </p>
+
+<h4>Routing:</h4>
+<p>/alumnos/alta</p>
+<p>/cursos/alta</p>
+<p>/inscripciones/alta</p>
+
+
+<h4>Pipes Personalizados:</h4>
+<p>nombreApellido: Muestra el nombre y el apellido.</p>
+<p>edad: Calcula y muestra la edad a partir de la fecha de nacimiento ingresada.</p>
+<p>pais: Imprime la bandera correspondiente a la nacionalidad del alumno.</p>
+
+
+<h4>Directivas:</h4>
+<p>encabezados: Formatea en 15px los encabezados de la tabla.</p>
+<br>
+<br>
+<p>Estructura realizada con Bootstrap. <br>Estilos de Angular Material y CSS</p>

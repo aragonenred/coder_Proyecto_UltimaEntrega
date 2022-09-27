@@ -29,7 +29,6 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     //AlumnosModule, //Lo cargo desde el app-routing.module.ts usando lazy loading
     //CursosModule, //Lo cargo desde el app-routing.module.ts usando lazy loading
     //InscripcionesModule, //Lo cargo desde el app-routing.module.ts usando lazy loading
